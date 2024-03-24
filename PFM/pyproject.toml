@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "pfm"
+version = "0.1.0"
+description = "This Project Can be USed To Manage A Persons Day To Day Expenses"
+authors = ["Tanmaysarkar2002 <tanmaysarkar959@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^5.0.3"
+django-restframework = "^0.0.1"
+requests = "^2.31.0"
+djangorestframework = "^3.15.1"
+django-oauth-toolkit = "^2.3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+runserver = "python manage.py runserver"
