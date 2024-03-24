@@ -40,7 +40,12 @@ INSTALLED_APPS = [
     'Auth',
     'oauth2_provider',
     'rest_framework',
+    'rest_framework.authtoken',
+    'DailyExpenses',
+
 ]
+
+
 
 OAUTH2_PROVIDER = {
     'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'},
@@ -90,7 +95,7 @@ WSGI_APPLICATION = 'PFM.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "mydatabase",
+        "NAME": "db.sqlite3",
     }
 }
 
