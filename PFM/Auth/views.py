@@ -26,12 +26,12 @@ class RegisterView(APIView):
         account_location = data.get('account_location')
         userid = data.get('userid')
         password = data.get('password')
+        email = data.get('email')  # get email from request data
 
-
-        if not name or not dob or not address  or not userid or not password:
+        if not name or not dob or not address  or not userid or not password or not email:  # check if email is provided
             return Response({'error': 'Please provide all fields'}, status=HTTP_400_BAD_REQUEST)
 
-        user = User.objects.create_user(username=userid, password=password)
+        user = User.objects.create_user(username=userid, password=password, email=email)  # set email for User
 
         print(user , "user")
         user = UserDetails.objects.create(
@@ -40,6 +40,7 @@ class RegisterView(APIView):
             dob=dob,
             address=address,
             account_location=account_location,
+            email=email,  # set email for UserDetails
         )
 
         return Response({'message': 'User created successfully'}, status=HTTP_200_OK)
@@ -50,7 +51,7 @@ class LoginView(APIView):
         data = request.data
         userid = data.get('userid')
         password = data.get('password')
-        print(data , "data")
+
         
         if not userid or not password:
             print(data)
@@ -58,7 +59,6 @@ class LoginView(APIView):
 
         user = authenticate(username=userid, password=password)
 
-        print(user)
         if not user:
             return Response({'error': 'Invalid credentials'}, status=HTTP_400_BAD_REQUEST)
         
@@ -73,6 +73,7 @@ class LoginView(APIView):
                 'userid': user.username,
                 'name': user_info.name,
                 'dob': user_info.dob,
+                'email': user_info.email,  # add email to the response
             }
         }, status=HTTP_200_OK)
     
@@ -92,9 +93,10 @@ class UpdateInformation(APIView):
         
         phone = data.get('phone')
         userid = request.user.username
+        email = data.get('email')
         print(data)
-        if not name or not dob or not address or not account_location  or not phone:
-            return Response({'error': 'Please provide all fields'}, status=HTTP_400_BAD_REQUEST)
+        if not name or not dob or not address or not account_location or not phone or not email:
+            return Response({'error': 'Please provide any one to update fields'}, status=HTTP_400_BAD_REQUEST)
         
         try:
             user = User.objects.get(username=userid)
@@ -108,6 +110,7 @@ class UpdateInformation(APIView):
         user_info.address = address
         user_info.account_location = account_location
         user_info.phone = phone
+        user_info.email = email
         user_info.save()
         
         return Response({'message': 'User information updated successfully'}, status=HTTP_200_OK)
@@ -127,4 +130,5 @@ class GetUserDetails(APIView):
             'address': user_info.address,
             'account_location': user_info.account_location,
             'phone': user_info.phone,
+            'email': user_info.email,   
         }, status=HTTP_200_OK)

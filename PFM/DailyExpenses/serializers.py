@@ -1,7 +1,8 @@
 from rest_framework import serializers
-from .models import YourModel
+from DailyExpenses.models import ExpenseCategory
 
-class YourModelSerializer(serializers.ModelSerializer):
+
+class ExpenseCategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = YourModel
-        fields = '__all__'
+        model = ExpenseCategory
+        fields = ['name' ,'user']

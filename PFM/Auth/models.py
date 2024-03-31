@@ -8,6 +8,7 @@ class UserDetails(models.Model):
     dob = models.DateField(max_length=200 , null=True , blank=True)
     address = models.CharField(max_length=500 , null=True , blank=True)
     account_location = models.CharField(max_length=200)
+    email = models.EmailField(max_length=254)
     phone = models.CharField(max_length=10, blank=True , null=True ,validators=[
                                 RegexValidator(r'^\d{1,10}$')])
 
