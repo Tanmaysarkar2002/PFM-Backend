@@ -1,20 +1,13 @@
-import copy
-from django.shortcuts import render
-from django.http import HttpResponse , JsonResponse
-
-from rest_framework import generics, permissions, serializers, status
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
-from rest_framework.authtoken.models import Token
+
 
 from DailyExpenses.models import DailyExpenses
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-from django.db import transaction
 
 
 
